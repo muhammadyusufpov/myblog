@@ -60,15 +60,17 @@
                         <span class="text-muted" style="font-size: 0.85rem;">• &nbsp; {{ post.created_at|date:"F j, Y" }}</span>
                         
                         {% if user.is_superuser %}
-                            <span class="text-muted" style="font-size: 0.85rem;">•</span>
-                            <a href="{% url 'edit_post' post.pk %}" class="btn btn-link btn-sm p-0 text-decoration-none text-primary" style="font-size: 0.85rem;">Edit</a>
-                            
-                            <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none text-danger" 
-                                    style="font-size: 0.85rem;" 
-                                    data-bs-toggle="modal" 
-                                    data-bs-target="#deleteModal{{ post.pk }}">
-                                Delete
-                            </button>
+                            {% if post.pk %}
+                                <span class="text-muted" style="font-size: 0.85rem;">•</span>
+                                <a href="{% url 'edit_post' post.pk %}" class="btn btn-link btn-sm p-0 text-decoration-none text-primary" style="font-size: 0.85rem;">Edit</a>
+                                
+                                <button type="button" class="btn btn-link btn-sm p-0 text-decoration-none text-danger" 
+                                        style="font-size: 0.85rem;" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#deleteModal{{ post.pk }}">
+                                    Delete
+                                </button>
+                            {% endif %}
                         {% endif %}
                     </div>
                     <h2 class="h3 mb-3">{{ post.title }}</h2>
