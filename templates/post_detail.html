@@ -50,8 +50,8 @@
                     
                     <h1 class="fw-bold mb-4" style="font-size: 2.2rem; letter-spacing: -0.3px; line-height: 1.25;">{{ post.title }}</h1>
 
-                    <div class="post-content my-4" style="font-size: 1.1rem; letter-spacing: 0.1px;">
-                        {{ post.content|safe }}
+                    <div class="post-content my-4">
+                        {{ post.rendered_html }}
                     </div>
                 </article>
             </div>
