@@ -75,9 +75,11 @@
                     <p class="text-muted mb-4" style="line-height: 1.7;">
                         {{ post.content|striptags|truncatewords:40 }}
                     </p>
-                    <div>
-                        <a href="{% url 'post_detail' post.pk %}" class="read-more-link">Read more</a>
-                    </div>
+                    {% if post.pk %}
+                        <div>
+                            <a href="{% url 'post_detail' post.pk %}" class="read-more-link">Read more</a>
+                        </div>
+                    {% endif %}
                 </article>
                 
                 {% if user.is_superuser %}
