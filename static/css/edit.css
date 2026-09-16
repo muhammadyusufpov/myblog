@@ -83,3 +83,30 @@ body {
 .btn-delete:hover {
     color: #a71d2a;
 }
+
+.editor-hint {
+    font-size: 0.85rem;
+    color: #888888;
+    margin-bottom: 0.75rem;
+}
+
+.markdown-textarea,
+.html-textarea {
+    min-height: 360px;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    resize: vertical;
+}
+
+.EasyMDEContainer .CodeMirror {
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    font-size: 1.05rem;
+    min-height: 360px;
+}
+
+.EasyMDEContainer .editor-toolbar {
+    border: 1px solid #dee2e6;
+    border-bottom: none;
+    background: #fafafa;
+}
