@@ -75,7 +75,7 @@
                     </div>
                     <h2 class="h3 mb-3">{{ post.title }}</h2>
                     <p class="text-muted mb-4" style="line-height: 1.7;">
-                        {{ post.content|striptags|truncatewords:40 }}
+                        {{ post.plain_text|truncatewords:40 }}
                     </p>
                     {% if post.pk %}
                         <div>
