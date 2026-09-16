@@ -40,14 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "blog",
-    "django_ckeditor_5",
 ]
-
-CKEDITOR_5_CONFIGS = {
-    'default': {
-        'toolbar': ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
-    }
-}
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
