@@ -24,19 +24,14 @@ class PostForm(forms.ModelForm):
                     "class": "form-control markdown-textarea",
                     "rows": 18,
                     "placeholder": "Write in Markdown...",
+                    "data-editor": "markdown",
                 }
             ),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        is_html = bool(
-            self.instance
-            and self.instance.pk
-            and self.instance.content_format == Post.FORMAT_HTML
-        )
-        editor = "html" if is_html else "markdown"
-        self.fields["content"].widget.attrs["data-editor"] = editor
-        if is_html:
-            self.fields["content"].widget.attrs["class"] = "form-control html-textarea"
-            self.fields["content"].widget.attrs["placeholder"] = "HTML content"
+        original_format = Post.FORMAT_MARKDOWN
+        if self.instance.pk:
+            original_format = self.instance.content_format or Post.FORMAT_MARKDOWN
+        self.fields["content"].widget.attrs["data-original-format"] = original_format
