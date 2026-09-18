@@ -105,7 +105,7 @@ class PostAuthoringTests(TestCase):
         self.assertEqual(post.content_format, Post.FORMAT_MARKDOWN)
         self.assertEqual(post.content, "# Intro\n\nHello **there**.")
 
-    def test_edit_keeps_html_format(self):
+    def test_edit_saves_old_html_post_as_markdown(self):
         post = Post.objects.create(
             category="Tech",
             title="Old article",
@@ -117,13 +117,28 @@ class PostAuthoringTests(TestCase):
             {
                 "category": "Tech",
                 "title": "Old article",
-                "content": "<p>Updated</p>",
+                "content": "# Converted\n\nNow **markdown**.",
             },
         )
         self.assertEqual(response.status_code, 302)
         post.refresh_from_db()
-        self.assertEqual(post.content_format, Post.FORMAT_HTML)
-        self.assertEqual(post.content, "<p>Updated</p>")
+        self.assertEqual(post.content_format, Post.FORMAT_MARKDOWN)
+        self.assertEqual(post.content, "# Converted\n\nNow **markdown**.")
+
+    def test_edit_page_opens_markdown_editor_for_html_posts(self):
+        post = Post.objects.create(
+            category="Tech",
+            title="Old article",
+            content="<p>Original</p>",
+            content_format=Post.FORMAT_HTML,
+        )
+        response = self.client.get(reverse("edit_post", args=[post.pk]))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "easymde")
+        self.assertContains(response, 'data-editor="markdown"')
+        self.assertNotContains(response, "Keep as HTML")
+        self.assertNotContains(response, "Edit as Markdown")
+        self.assertNotContains(response, "This article was written before Markdown")
 
     def test_write_page_loads_markdown_editor(self):
         response = self.client.get(reverse("create_post"))
