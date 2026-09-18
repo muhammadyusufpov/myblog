@@ -31,11 +31,6 @@
 
                 <div class="mb-5">
                     <label class="form-label text-muted small text-uppercase fw-medium mb-2">Article Content</label>
-                    {% if post.is_markdown %}
-                        <p class="editor-hint">Markdown: headings, lists, code, tables, quotes, links, and images.</p>
-                    {% else %}
-                        <p class="editor-hint">This article was written before Markdown. It is kept as HTML and will look the same.</p>
-                    {% endif %}
                     {{ form.content }}
                 </div>
 
@@ -57,6 +52,7 @@
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/turndown@7.2.0/dist/turndown.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/easymde@2.18.0/dist/easymde.min.js"></script>
 <script src="{% static 'js/markdown-editor.js' %}"></script>
 </body>
