@@ -1,7 +1,24 @@
 document.addEventListener("DOMContentLoaded", function () {
     var el = document.getElementById("id_content");
-    if (!el || el.dataset.editor !== "markdown" || typeof EasyMDE === "undefined") {
+    if (!el || typeof EasyMDE === "undefined") {
         return;
+    }
+
+    function looksLikeHtml(text) {
+        return /<\/?[a-z][\s\S]*>/i.test(text || "");
+    }
+
+    if (
+        el.dataset.originalFormat === "html" &&
+        typeof TurndownService !== "undefined" &&
+        looksLikeHtml(el.value)
+    ) {
+        var turndown = new TurndownService({
+            headingStyle: "atx",
+            codeBlockStyle: "fenced",
+            bulletListMarker: "-",
+        });
+        el.value = turndown.turndown(el.value);
     }
 
     var editor = new EasyMDE({
