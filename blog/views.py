@@ -32,7 +32,9 @@ def edit_post(request, pk):
     if request.method == 'POST':
         form = PostForm(request.POST, instance=post)
         if form.is_valid():
-            form.save()
+            post = form.save(commit=False)
+            post.content_format = Post.FORMAT_MARKDOWN
+            post.save()
             next_url = request.POST.get('next_url')
             return redirect(next_url if next_url else 'blog_list')
     else:
